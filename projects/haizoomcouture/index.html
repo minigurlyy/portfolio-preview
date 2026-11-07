@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Haizoom Couture Case Study</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Haizoom Couture: a luxury fashion-tech platform with body-scan personalization and 3D visualization, designed and built end to end by Srra Zahid with ChatGPT and Codex in the workflow.">
+<link rel="icon" href="assets/sz-logo.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Haizoom Couture · Srra Zahid">
+<meta property="og:description" content="Luxury fashion-tech with a two-photo body scan and interactive 3D. Designed and built end to end, with ChatGPT and Codex in the workflow.">
+<meta property="og:image" content="https://haizoomdesign.com/projects/haizoomcouture/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600;700&family=Fragment+Mono&display=swap">
+<script>try{if(localStorage.getItem('sz-theme3')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+<style>
+:root{
+  --display:"Bricolage Grotesque","Avenir Next",Arial,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Fragment Mono",ui-monospace,Menlo,monospace;
+  --serif:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --red:#ff0044; --red2:#ff8fb8; --ai:#22e0a1;
+  --bg:#f3efe8; --bg2:#ebe5db; --card:#fbf9f5; --ink:#141210; --dim:#6b645c; --line:rgba(20,18,16,.12); --line2:rgba(20,18,16,.22);
+  --shadow:0 24px 60px -30px rgba(40,20,10,.35);
+  --gut:clamp(20px,5vw,72px); --max:1320px;
+  color-scheme:light;
+}
+:root.dark{--bg:#090808;--bg2:#121010;--card:#151313;--ink:#f3eee8;--dim:#9a918a;--line:rgba(243,238,232,.1);--line2:rgba(243,238,232,.2);--shadow:0 30px 70px -30px rgba(0,0,0,.8);color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.65 var(--body);-webkit-font-smoothing:antialiased;transition:background .5s,color .5s}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+::selection{background:var(--red);color:#fff}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+
+/* ---------- top nav (matches home) ---------- */
+.top{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px var(--gut);color:#fff;transition:background .4s,color .4s,padding .4s}
+.top.solid{background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:var(--ink);padding-top:12px;padding-bottom:12px;box-shadow:0 1px 0 var(--line)}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.mark{width:34px;height:36px;background:currentColor;-webkit-mask:url(assets/sz-logo.png) center/contain no-repeat;mask:url(assets/sz-logo.png) center/contain no-repeat}
+.crumb{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.crumb b{font-weight:400;opacity:.6}
+.links{display:flex;align-items:center;gap:26px}
+.links a{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;opacity:.85}
+.links a:hover{opacity:1}
+.theme{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:transparent;color:inherit;border:1px solid color-mix(in srgb,currentColor 35%,transparent);cursor:pointer}
+.theme svg{width:18px;height:18px}.theme .moon{display:none}:root.dark .theme .sun{display:none}:root.dark .theme .moon{display:block}
+@media (max-width:760px){.links a,.crumb{display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:#f6f1ea;overflow:hidden;background:#000}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 100%;opacity:.8;transform:scale(1.12);transform-origin:50% 100%}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(80% 60% at 70% 30%,transparent,rgba(0,0,0,.55)),linear-gradient(180deg,rgba(0,0,0,.55),transparent 22%,transparent 50%,rgba(0,0,0,.92))}
+.hero .in{position:relative;z-index:2;width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--gut) clamp(36px,7vh,72px)}
+.hero .k{display:flex;gap:12px;align-items:center;color:rgba(246,241,234,.75)}
+.hero .k i{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 14px var(--red)}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(54px,11vw,180px);line-height:.88;letter-spacing:-.05em;margin:.2em 0 .18em}
+.hero h1 em{font-style:normal;color:var(--red2)}
+.hero .lede{max-width:640px;font-size:clamp(18px,1.6vw,22px);line-height:1.5;color:rgba(246,241,234,.86);margin:0}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:clamp(28px,5vh,52px);padding-top:22px;border-top:1px solid rgba(246,241,234,.18)}
+.meta div span{display:block;color:rgba(246,241,234,.55);margin-bottom:6px}
+.meta div p{margin:0;font-size:15.5px;line-height:1.45}
+.ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:.8em 1.25em;border-radius:99px;font:600 15px/1 var(--body);text-decoration:none;transition:transform .3s cubic-bezier(.2,.7,.2,1),background .3s}
+.btn.p{background:#f6f1ea;color:#0a0908}.btn.p:hover{transform:translateY(-2px)}
+.btn.g{border:1px solid rgba(246,241,234,.35);color:#f6f1ea}.btn.g:hover{background:rgba(246,241,234,.1)}
+.btn .d{width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,#ff0044,#9b6bff,#1fc2ff)}
+@media (max-width:860px){.meta{grid-template-columns:1fr 1fr}}
+
+/* ---------- layout + collapsible section rail ---------- */
+.body{max-width:var(--max);margin:0 auto;padding:0 var(--gut);transition:padding .45s cubic-bezier(.2,.7,.2,1)}
+.rail{position:fixed;z-index:40;left:18px;top:50%;transform:translate(-12px,-50%);opacity:0;pointer-events:none;width:52px;padding:10px 8px;border-radius:16px;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 18px 40px -24px rgba(0,0,0,.35);overflow:hidden;transition:width .4s cubic-bezier(.2,.7,.2,1),opacity .4s,transform .4s cubic-bezier(.2,.7,.2,1)}
+.rail.show{opacity:1;pointer-events:auto;transform:translate(0,-50%)}
+.rail:hover,.rail:focus-within,.rail.pinned{width:236px}
+.rail .rh{display:flex;align-items:center;gap:8px;height:30px;padding:0 6px 8px;margin-bottom:6px;border-bottom:1px solid var(--line);white-space:nowrap}
+.rail .rh .mono{font-size:10.5px;color:var(--dim);opacity:0;transition:opacity .25s}
+.pinb{margin-left:auto;flex:none;width:28px;height:28px;border-radius:8px;border:1px solid var(--line2);background:transparent;color:var(--ink);display:grid;place-items:center;cursor:pointer;opacity:0;transition:opacity .25s,background .2s}
+.pinb svg{width:15px;height:15px}.pinb[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.rail ol{list-style:none;margin:0;padding:0;counter-reset:s}
+.rail li a{display:flex;gap:12px;align-items:center;height:32px;padding:0 6px;border-radius:8px;text-decoration:none;color:var(--dim);font:500 14px/1 var(--body);white-space:nowrap;transition:color .2s,background .2s}
+.rail li a::before{counter-increment:s;content:counter(s,decimal-leading-zero);flex:none;width:22px;font-family:var(--mono);font-size:11px;letter-spacing:.04em}
+.rail li a span{opacity:0;transition:opacity .25s}
+.rail li a:hover{background:var(--line);color:var(--ink)}
+.rail li a.on{color:var(--ink)}.rail li a.on::before{color:var(--red)}
+.rail:hover .rh .mono,.rail:focus-within .rh .mono,.rail.pinned .rh .mono,.rail:hover .pinb,.rail:focus-within .pinb,.rail.pinned .pinb,.rail:hover li a span,.rail:focus-within li a span,.rail.pinned li a span,.rail:hover .aitog .tx,.rail:focus-within .aitog .tx,.rail.pinned .aitog .tx{opacity:1}
+.aitog{margin-top:8px;display:flex;align-items:center;gap:10px;width:100%;height:40px;padding:0 6px;border-radius:10px;border:0;border-top:1px solid var(--line);background:none;color:var(--ink);cursor:pointer;font:500 13px/1.2 var(--body);text-align:left;white-space:nowrap}
+.aitog .tx{opacity:0;transition:opacity .25s}
+.aitog .sw{flex:none;width:22px;height:14px;border-radius:99px;background:var(--line2);position:relative;transition:background .3s;order:-1}
+.aitog .sw::after{content:"";position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:50%;background:#fff;transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.aitog[aria-pressed=true] .sw{background:linear-gradient(90deg,#ff0044,#9b6bff,#1fc2ff)}.aitog[aria-pressed=true] .sw::after{transform:translateX(8px)}
+/* keep content clear of the rail: collapsed rail ends at 70px, pinned at 254px */
+@media (min-width:1021px){.body{padding-left:max(var(--gut),100px)}body.railpin .body{padding-left:max(calc(var(--gut) + 200px),284px)}}
+@media (max-width:1020px){.rail{display:none}}
+
+/* ---------- sections ---------- */
+section.s{padding:clamp(80px,12vh,140px) 0 0}
+.lbl{display:flex;align-items:center;gap:12px;color:var(--dim);margin-bottom:22px}
+.lbl::before{content:"";width:22px;height:1px;background:var(--red)}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(34px,4.6vw,66px);line-height:1;letter-spacing:-.035em;margin:0 0 .45em;max-width:16ch}
+h2 em{font-style:normal;color:var(--red)}
+h3{font-family:var(--display);font-weight:600;font-size:clamp(21px,1.9vw,26px);letter-spacing:-.02em;line-height:1.15;margin:0 0 .5em}
+p.big{font-size:clamp(19px,1.7vw,23px);line-height:1.55;max-width:46ch;margin:0 0 1em}
+p{max-width:64ch}
+.cols{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,80px);align-items:start}
+.cols.r{grid-template-columns:.9fr 1.1fr}
+@media (max-width:860px){.cols,.cols.r{grid-template-columns:1fr}}
+.dim{color:var(--dim)}
+
+
+/* summary */
+.tldr{margin:8px 0 0;border-top:1px solid var(--line)}
+.tldr div{display:grid;grid-template-columns:170px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid var(--line)}
+.tldr dt{color:var(--dim);padding-top:4px}
+.tldr dd{margin:0;font-size:clamp(16.5px,1.35vw,19px);line-height:1.5;max-width:62ch}
+.skills{margin-top:28px}
+.skills .mono{color:var(--dim);display:block;margin-bottom:12px}
+.skills ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.skills li{padding:6px 12px;border-radius:99px;border:1px solid var(--line2);font-size:13.5px;line-height:1.2}
+@media (max-width:640px){.tldr div{grid-template-columns:1fr;gap:4px}}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:clamp(40px,6vh,64px)}
+.stats div{padding:26px 22px 24px 0}
+.stats div+div{padding-left:22px;border-left:1px solid var(--line)}
+.stats b{display:block;font-family:var(--display);font-weight:700;font-size:clamp(38px,4.4vw,60px);line-height:1;letter-spacing:-.03em}
+.stats span{display:block;margin-top:10px;color:var(--dim);font-size:14px;line-height:1.4}
+@media (max-width:760px){.stats{grid-template-columns:1fr 1fr}.stats div:nth-child(3){padding-left:0;border-left:0}.stats div:nth-child(n+3){border-top:1px solid var(--line)}}
+
+/* media */
+.fig{margin:0;position:relative}
+.fig figcaption{margin-top:12px;color:var(--dim);font-size:13.5px;line-height:1.45;display:flex;gap:10px}
+.fig figcaption .mono{color:var(--ink);opacity:.6;font-size:11px;flex:none;padding-top:2px}
+.shot{position:relative;border-radius:14px;overflow:hidden;background:#000;box-shadow:var(--shadow);border:1px solid var(--line)}
+.shot img,.shot video{width:100%;height:auto}
+.zoomable{cursor:zoom-in}
+.browser{border-radius:14px;overflow:hidden;background:#111;box-shadow:var(--shadow);border:1px solid var(--line)}
+.browser .bar{display:flex;align-items:center;gap:7px;height:34px;padding:0 14px;background:#1b1918;border-bottom:1px solid rgba(255,255,255,.06)}
+.browser .bar i{width:10px;height:10px;border-radius:50%;background:#3a3633}
+.browser .bar span{margin-left:12px;flex:1;max-width:340px;height:20px;border-radius:6px;background:#262321;color:#8f8780;font:11px/20px var(--mono);padding:0 10px;overflow:hidden;white-space:nowrap}
+.browser video,.browser img{width:100%;height:auto}
+.phone{width:min(300px,78%);margin:0 auto;padding:10px;border-radius:44px;background:#0d0c0c;box-shadow:var(--shadow),inset 0 0 0 1.5px #2a2725;position:relative}
+.phone video,.phone img{border-radius:34px;width:100%;height:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,24px)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,24px)}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}.grid3{gap:8px}}
+.full{margin-top:clamp(40px,6vh,64px)}
+
+/* pinned notes on audit shots */
+.pins{position:relative}
+.pin{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;padding:0;border:0;border-radius:50%;background:var(--red);color:#fff;font:600 12px/30px var(--mono);text-align:center;cursor:pointer;box-shadow:0 0 0 6px color-mix(in srgb,var(--red) 25%,transparent);transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s;z-index:2}
+.pin::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--red);animation:pp 2.2s ease-out infinite;pointer-events:none}
+@keyframes pp{from{transform:scale(.8);opacity:.9}to{transform:scale(1.9);opacity:0}}
+.pin:hover,.pin:focus-visible,.pin.on{transform:scale(1.15);box-shadow:0 0 0 9px color-mix(in srgb,var(--red) 30%,transparent);outline:none}
+.pin.on::after{animation:none;opacity:0}
+.pop{position:absolute;z-index:3;width:min(270px,70%);padding:14px 16px;border-radius:12px;background:var(--ink);color:var(--bg);font-size:14px;line-height:1.45;box-shadow:0 18px 40px -14px rgba(0,0,0,.5);opacity:0;transform:translateY(6px);pointer-events:none;transition:opacity .25s,transform .3s cubic-bezier(.2,.7,.2,1)}
+.pop.on{opacity:1;transform:none;pointer-events:auto}
+.pop b{display:block;margin-bottom:4px}
+.notes li{transition:color .25s}.notes li.on{color:var(--ink)}.notes li.on::before{transform:scale(1.15)}
+.notes li{cursor:pointer}
+.notes{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:12px;counter-reset:n}
+.notes li{display:flex;gap:12px;font-size:15px;line-height:1.5;color:var(--dim)}
+.notes li::before{counter-increment:n;content:counter(n);flex:none;width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;font:600 11px/22px var(--mono);text-align:center;margin-top:1px}
+.notes li b{color:var(--ink);font-weight:600}
+
+/* quote / hmw */
+.hmw{margin:clamp(48px,8vh,90px) 0 0;padding:clamp(32px,5vw,64px);border-radius:22px;background:#0b0a0a;color:#f6f1ea;position:relative;overflow:hidden}
+.hmw::before{content:"";position:absolute;inset:-40% -10% auto auto;width:60%;aspect-ratio:1;background:radial-gradient(circle,color-mix(in srgb,var(--red) 40%,transparent),transparent 65%);filter:blur(10px)}
+.hmw .mono{color:rgba(246,241,234,.55);position:relative}
+.hmw q{display:block;position:relative;font-family:var(--display);font-weight:600;font-size:clamp(28px,3.4vw,48px);line-height:1.1;letter-spacing:-.03em;margin-top:18px;max-width:22ch;quotes:none}
+.hmw q em{color:var(--red2)}
+
+/* pillars */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.pillar{padding:26px;border-radius:18px;background:var(--card);border:1px solid var(--line);transition:transform .4s cubic-bezier(.2,.7,.2,1),border-color .3s}
+.pillar:hover{transform:translateY(-4px);border-color:var(--line2)}
+.pillar .n{font-family:var(--serif);font-size:44px;line-height:1;color:var(--red)}
+.pillar h3{margin-top:18px}
+.pillar p{margin:0;color:var(--dim);font-size:15px}
+@media (max-width:860px){.pillars{grid-template-columns:1fr}}
+
+/* brand */
+.brandrow{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:36px}
+.tile{border-radius:18px;overflow:hidden;position:relative;border:1px solid var(--line)}
+.tile.logo{background:#0a0909;display:grid;place-items:center;min-height:320px;padding:40px}
+.tile.logo img{width:min(420px,80%)}
+.tile.type{background:var(--card);padding:30px;display:flex;flex-direction:column;justify-content:space-between;min-height:320px}
+.tile.type .aa{font-family:var(--serif);font-size:clamp(90px,10vw,150px);line-height:.9;letter-spacing:-.04em}
+.tile.type .aa em{color:var(--red)}
+.sw{display:flex;gap:10px;margin-top:16px}
+.chip{flex:1;height:84px;border-radius:12px;padding:10px;display:flex;align-items:flex-end;font:11px var(--mono);letter-spacing:.06em;border:1px solid var(--line)}
+@media (max-width:760px){.brandrow{grid-template-columns:1fr}}
+
+/* flow diagram */
+.flow{margin-top:clamp(36px,5vh,56px);padding:clamp(20px,3vw,36px);border-radius:20px;background:var(--card);border:1px solid var(--line);overflow-x:auto}
+.flow svg{width:100%;min-width:760px;height:auto;display:block}
+.flow .nd rect{fill:var(--bg);stroke:var(--line2)}
+.flow .nd.hl rect{stroke:var(--red);stroke-width:1.5}
+.flow .nd.ext rect{stroke-dasharray:4 4}
+.flow text{fill:var(--ink);font-family:var(--body);font-size:13px}
+.flow .t1{font-weight:600;font-size:14px}
+.flow .t2{fill:var(--dim);font-size:11.5px;font-family:var(--mono);letter-spacing:.02em}
+.flow .ar{stroke:var(--line2);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.flow .ar.live{stroke:var(--red);stroke-dasharray:6 6;animation:dash 1.2s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-12}}
+.flow .lg{fill:var(--dim);font-size:11px;font-family:var(--mono)}
+
+/* before/after */
+.ba{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:end;margin-top:28px}
+.ba figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 12px 10px;text-align:center}
+.ba img{height:220px;width:100%;margin:0 auto;object-fit:cover;object-position:50% 20%;border-radius:8px;background:#fff}
+.ba figcaption{margin-top:8px;color:var(--dim);font-size:12px}
+.ba .arrow{display:none}
+@media (max-width:760px){.ba{grid-template-columns:1fr 1fr}.ba img{height:170px}}
+.grid3 .shot{aspect-ratio:4/5}.grid3 .shot video{width:100%;height:100%;object-fit:cover}
+
+
+/* shopper journey */
+.uflow{margin-top:clamp(36px,5vh,56px);padding:22px clamp(18px,2.5vw,28px) 26px;border-radius:20px;background:var(--card);border:1px solid var(--line);overflow-x:auto}
+.uf-h{display:flex;justify-content:space-between;gap:16px;margin-bottom:18px}.uf-h .mono{font-size:11px}
+.uflow ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(118px,1fr));gap:10px;min-width:880px;counter-reset:u}
+.uflow li{position:relative;padding:14px 14px 16px;border-radius:12px;border:1px solid var(--line2);background:var(--bg)}
+.uflow li::before{counter-increment:u;content:counter(u,decimal-leading-zero);display:block;font:11px var(--mono);color:var(--dim);margin-bottom:10px}
+.uflow li:not(:last-child)::after{content:"";position:absolute;right:-9px;top:50%;width:8px;height:1px;background:var(--line2)}
+.uflow li.hl{border-color:var(--red)}.uflow li.hl::before{color:var(--red)}
+.uflow b{display:block;font:600 15px/1.2 var(--body)}
+.uflow span{display:block;margin-top:6px;color:var(--dim);font-size:12.5px;line-height:1.35}
+/* decisions */
+.decs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
+.dec{padding:24px;border-radius:18px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column}
+.dec .mono{color:var(--red);font-size:11px;margin-bottom:14px}
+.dec h3{margin-bottom:16px}
+.dec dl{margin:auto 0 0}
+.dec dl div{padding:12px 0;border-top:1px solid var(--line)}
+.dec dt{font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:5px}
+.dec dd{margin:0;font-size:14.5px;line-height:1.5}
+.dec .gave dt{color:var(--red)}
+@media (max-width:1020px){.decs{grid-template-columns:1fr}}
+/* ---------- AI layer: solid white panels, colour carried by the type ---------- */
+.ai{--av:#6a4cff;--ac:#0a8fc4;--ar:#e0003c;--ag:#0b9e6e;margin:clamp(30px,4vh,44px) 0 0;border-radius:18px;background:#fff;color:#141210;overflow:hidden;font-size:15px;transition:opacity .45s,transform .45s cubic-bezier(.2,.7,.2,1),max-height .6s cubic-bezier(.2,.7,.2,1),margin .5s;max-height:1400px}
+:root:not(.dark) .ai{box-shadow:0 0 0 1px rgba(20,18,16,.08),0 14px 34px -24px rgba(40,20,10,.35)}
+.ai-h{display:flex;align-items:center;gap:10px;padding:13px 20px;border-bottom:1px solid rgba(20,18,16,.08);font:12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#141210}
+.ai-h .d{width:20px;height:20px;border-radius:6px;background:linear-gradient(135deg,#ff0044,#9b6bff 45%,#1fc2ff 75%,#22e0a1);color:#fff;display:grid;place-items:center;font:700 9.5px var(--mono);letter-spacing:0}
+.ai-h .ph{background:linear-gradient(90deg,#e0003c,#6a4cff 55%,#0a8fc4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ai-h .tool{margin-left:auto;display:flex;gap:6px}
+.ai-h .tool span{padding:3px 9px;border-radius:99px;background:#141210;color:#fff;letter-spacing:.06em}
+.ai-b{display:grid;grid-template-columns:1fr 1fr 1fr}
+.ai-b>div{padding:16px 20px 20px}
+.ai-b>div+div{border-left:1px solid rgba(20,18,16,.08)}
+.ai-b .mono{display:block;font-size:10.5px;margin-bottom:8px}
+.ai-b>div:nth-child(1) .mono{color:var(--av)}.ai-b>div:nth-child(2) .mono{color:var(--ac)}.ai-b>div:nth-child(3) .mono{color:var(--ar)}
+.ai-b p{margin:0;line-height:1.55;color:#2b2724}
+.ai-b .prompt p{font-family:var(--mono);font-size:13px;color:#3a2f86}
+.ai-b .prompt p::before{content:"› ";font-weight:700;color:var(--av)}
+.ai-b .me p b{font-weight:700;color:var(--ar)}
+:root.noai .ai{opacity:0;transform:translateY(10px);max-height:0;margin:0}
+@media (max-width:760px){.ai-b{grid-template-columns:1fr}.ai-b>div+div{border-left:0;border-top:1px solid rgba(20,18,16,.08)}}
+
+/* AI workflow map */
+.map{margin-top:36px;border-radius:20px;border:1px solid var(--line);background:var(--card);overflow:hidden}
+.map table{width:100%;border-collapse:collapse;font-size:14.5px}
+.map th,.map td{padding:15px 18px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.map tr:last-child td{border-bottom:0}
+.map th{font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:400;background:var(--bg2)}
+.map td:first-child{font-weight:600;white-space:nowrap}
+.map .t{display:inline-block;padding:3px 9px;margin:0 6px 4px 0;border-radius:99px;font:11.5px var(--mono);border:1px solid var(--line2)}
+.map .t.gpt{border-color:color-mix(in srgb,var(--ai) 55%,transparent);color:color-mix(in srgb,var(--ai) 70%,var(--ink))}
+.map .t.cdx{border-color:color-mix(in srgb,#7d6bff 60%,transparent);color:color-mix(in srgb,#7d6bff 75%,var(--ink))}
+.map .t.img{border-color:color-mix(in srgb,var(--red) 50%,transparent);color:color-mix(in srgb,var(--red) 75%,var(--ink))}
+.map .t.me{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.map-wrap{overflow-x:auto}
+.map table{min-width:720px}
+.rules{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:20px}
+.rule{padding:22px;border-radius:16px;border:1px solid var(--line);background:var(--card)}
+.rule .mono{color:var(--ai);display:block;margin-bottom:10px;font-size:11px}
+:root:not(.dark) .rule .mono{color:#0e9b6c}
+.rule p{margin:0;font-size:15px;color:var(--dim)}
+.rule p b{color:var(--ink)}
+@media (max-width:860px){.rules{grid-template-columns:1fr}}
+
+/* outcome */
+.outs{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px}
+.out{padding:24px;border-radius:16px;border:1px solid var(--line);background:var(--card)}
+.out p{margin:0;color:var(--dim);font-size:15.5px}
+@media (max-width:760px){.outs{grid-template-columns:1fr}}
+
+
+/* 1:1 sessions */
+.sess{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(24px,4vw,56px);margin-top:16px;padding:clamp(24px,3.5vw,44px);border-radius:20px;border:1px solid var(--line);background:var(--card)}
+.sess .mono{color:var(--dim);display:block;margin-bottom:14px}
+.sess h3{max-width:18ch}
+.who{list-style:none;margin:22px 0 0;padding:0}
+.who li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid var(--line);font-size:15px}
+.who li span{color:var(--dim);text-align:right}
+.topics{list-style:none;margin:0;padding:0;counter-reset:t}
+.topics li{display:grid;grid-template-columns:28px 1fr auto;gap:4px 12px;padding:13px 0;border-top:1px solid var(--line);align-items:baseline}
+.topics li::before{counter-increment:t;content:counter(t,decimal-leading-zero);font:11px var(--mono);color:var(--red);grid-row:span 2}
+.topics b{font-weight:600}
+.topics span{grid-column:2;color:var(--dim);font-size:14.5px;line-height:1.45}
+.topics a{grid-row:1;grid-column:3;font:11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-decoration:none}
+.topics a:hover{color:var(--red)}
+@media (max-width:860px){.sess{grid-template-columns:1fr}.outs{grid-template-columns:1fr}}
+/* next project */
+.next{display:block;margin:clamp(100px,16vh,180px) 0 0;position:relative;border-radius:26px;overflow:hidden;text-decoration:none;color:#fff;background:#06121a;min-height:340px}
+.next img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6;transition:transform 1.2s cubic-bezier(.2,.7,.2,1),opacity .6s}
+.next:hover img{transform:scale(1.04);opacity:.75}
+.next .in{position:relative;padding:clamp(28px,4vw,52px);display:flex;flex-direction:column;justify-content:flex-end;min-height:340px;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.7))}
+.next .mono{color:rgba(255,255,255,.7)}
+.next b{font-family:var(--display);font-size:clamp(40px,6vw,88px);letter-spacing:-.04em;line-height:1;margin-top:10px;display:flex;align-items:center;gap:.3em}
+.next b span{display:inline-grid;place-items:center;width:.8em;height:.8em;border-radius:50%;background:#fff;color:#000;font-size:.5em;transition:transform .4s}
+.next:hover b span{transform:rotate(-45deg)}
+
+/* footer: identical to the home page */
+.end{--wbg:var(--bg);--wink:var(--ink);margin-top:clamp(80px,12vh,140px)}
+.end{position:relative;z-index:5;background:var(--wbg);color:var(--wink);padding:20vh max(40px,env(safe-area-inset-left,0px)) 28px;overflow:hidden;--fl:color-mix(in srgb,var(--wink) 14%,transparent);--fd:color-mix(in srgb,var(--wink) 56%,transparent)}
+.end::before{content:"";position:absolute;left:50%;top:0;width:min(1100px,90vw);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,#ff0044,#22e0a1,#9b6bff,#1fc2ff,transparent);opacity:.55}
+.f-top{max-width:1400px;margin:0 auto}
+.f-kick{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--fd);margin-bottom:28px}
+.pulse{position:relative;width:8px;height:8px;border-radius:50%;background:#22e0a1}.pulse::after{content:"";position:absolute;inset:0;border-radius:50%;background:#22e0a1;animation:pz 2s ease-out infinite}
+@keyframes pz{to{transform:scale(3);opacity:0}}
+.f-h{font-family:var(--display);font-weight:700;font-size:clamp(46px,8.4vw,150px);letter-spacing:-.045em;line-height:.9;margin:0}
+.f-h .rv{display:block}
+.f-h em{font-style:normal;background:linear-gradient(90deg,#ff0044,#9b6bff 38%,#1fc2ff 68%,#22e0a1);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:fsh 9s ease-in-out infinite alternate}
+@keyframes fsh{to{background-position:100% 0}}
+.f-cta{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:44px}
+.f-btn{display:inline-flex;align-items:center;gap:14px;font-family:var(--display);font-weight:600;font-size:clamp(18px,1.6vw,24px);letter-spacing:-.01em;color:var(--wbg);background:var(--wink);text-decoration:none;padding:.85em 1.15em .85em 1.4em;border-radius:99px;transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+.f-btn span{display:grid;place-items:center;width:1.8em;height:1.8em;border-radius:50%;background:var(--wbg);color:var(--wink);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.f-btn:hover,.f-btn:focus-visible{transform:translateY(-2px);box-shadow:0 14px 40px -12px color-mix(in srgb,var(--wink) 45%,transparent);outline:none}.f-btn:hover span{transform:rotate(-45deg)}
+.f-note{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--fd)}
+.f-grid{max-width:1400px;margin:11vh auto 0;display:flex;justify-content:space-between;align-items:center;gap:24px 40px;flex-wrap:wrap;padding-top:26px;border-top:1px solid var(--fl)}
+.f-studio p{margin:0}.f-studio p+p{margin-top:6px}.f-studio .f-time{margin-left:10px}
+.f-links{display:flex;gap:34px;flex-wrap:wrap}
+.f-lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fd);margin-bottom:16px}
+.f-col a,.f-col button{display:flex;align-items:center;gap:10px;width:fit-content;color:inherit;text-decoration:none;font:500 16px/1.25 var(--body);padding:5px 0;background:none;border:0;cursor:pointer;position:relative}
+.f-col a::after,.f-col button::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.f-col a:hover::after,.f-col button:hover::after,.f-col a:focus-visible::after,.f-col button:focus-visible::after{transform:scaleX(1);transform-origin:left}
+.f-col a i{font-style:normal;font-size:.8em;color:var(--fd);transition:transform .3s}.f-col a:hover i{transform:translate(2px,-2px);color:var(--wink)}
+.f-col button b{width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c)}
+.f-col button small{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--fd)}
+.f-col p{margin:5px 0 14px;font:500 16px/1.5 var(--body)}.f-dim{color:var(--fd)}
+.f-time{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--fd)}
+.f-word{position:relative;pointer-events:none;margin:9vh -2vw 0;text-align:center;white-space:nowrap;font-family:var(--display);font-weight:800;font-size:21.5vw;line-height:.8;letter-spacing:-.055em;padding-bottom:.06em;user-select:none;
+  color:transparent;background:var(--land,linear-gradient(180deg,var(--wink),transparent)) 50% var(--ly,40%)/cover no-repeat;-webkit-background-clip:text;background-clip:text;opacity:.95}
+.f-word::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 72%,var(--wbg));pointer-events:none}
+.f-bar{position:relative;z-index:2;max-width:1400px;margin:22px auto 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fd)}
+.f-bar a{color:inherit;text-decoration:none}.f-bar a:hover{color:var(--wink)}
+.end .rv{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.end .rv:nth-child(2){transition-delay:.08s}.end .f-cta.rv{transition-delay:.18s}
+.end.in .rv{opacity:1;transform:none}
+@media (max-width:760px){.end{padding:16vh 24px 22px}.f-links{gap:24px}.f-mid{display:none}.f-word{font-size:19.5vw;margin-left:0;margin-right:0}}
+@media (prefers-reduced-motion:reduce){.end .rv{opacity:1;transform:none;transition:none}.f-h em{animation:none}}
+
+.f-h{max-width:none}
+.f-word{--land:url(assets/land_dk.webp)}:root.dark .f-word{--land:url(assets/land_lt.webp)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.hero video{transform:none}.flow .ar.live{animation:none}}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:80;background:rgba(5,4,4,.9);backdrop-filter:blur(8px);display:grid;place-items:center;padding:4vw;opacity:0;pointer-events:none;transition:opacity .35s;cursor:zoom-out}
+.lb.on{opacity:1;pointer-events:auto}
+.lb img{max-width:100%;max-height:88vh;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6);transform:scale(.96);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.lb.on img{transform:none}
+.lb p{position:absolute;bottom:22px;left:0;right:0;text-align:center;color:rgba(255,255,255,.7);margin:0 auto;font-size:14px}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CreativeWork","name":"Haizoom Couture","headline":"Haizoom Couture: luxury fashion-tech with body-scan personalization and interactive 3D","description":"Harvard capstone. A luxury e-commerce platform combining editorial product discovery, a two-photo body scan powered by the 3DLOOK API, and interactive 3D garments. Designed and built end to end by Srra Zahid in 16 weeks, with ChatGPT and Codex in the workflow.","url":"https://haizoomdesign.com/projects/haizoomcouture","dateCreated":"2026","inLanguage":"en",
+"author":{"@type":"Person","name":"Srra Zahid","jobTitle":"Multimedia Designer","address":{"@type":"PostalAddress","addressLocality":"San Francisco","addressRegion":"CA"},"url":"https://haizoomdesign.com","sameAs":["https://www.linkedin.com/in/srrazahid/"]},
+"keywords":["UX research","competitive audit","information architecture","interaction design","UI design","brand identity","prototyping","Framer","React","TypeScript","Next.js","REST API integration","3DLOOK","CMS architecture","CLO3D","3D visualization","AI-assisted design","ChatGPT","Codex","prompting","QA testing","e-commerce","fashion tech"],
+"contributor":[{"@type":"Organization","name":"3DLOOK"},{"@type":"Organization","name":"Harvard Innovation Labs"}]}
+</script>
+</head>
+<body>
+
+<header class="top" id="top">
+  <a class="brand" href="../../" aria-label="Srra Zahid, home"><span class="mark" aria-hidden="true"></span><span class="crumb">Work <b>/</b> Haizoom Couture</span></a>
+  <nav class="links" aria-label="Site">
+    <a href="../../#work">Work</a><a href="../../#about">About</a><a href="../../#ds">Design system</a>
+    <button class="theme" id="themeBtn" type="button" aria-label="Switch theme">
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 14.6A8.3 8.3 0 0 1 9.4 3.8a8.3 8.3 0 1 0 10.8 10.8Z"/></svg>
+    </button>
+  </nav>
+</header>
+
+<section class="hero" aria-label="Haizoom Couture">
+  <video src="assets/v_readytowear.mp4" poster="assets/f_rtw.webp" autoplay muted loop playsinline aria-hidden="true"></video>
+  <div class="in">
+    <div class="k mono"><i></i>Case study 02 · Fashion-tech · 2026</div>
+    <h1>Haizoom <em>Couture</em></h1>
+    <p class="lede">A luxury fashion-tech platform that replaces size-chart guesswork with a two-photo body scan and interactive 3D garments.</p>
+    <div class="meta">
+      <div><span class="mono">Context</span><p>Harvard capstone · 2026</p></div>
+      <div><span class="mono">Platform</span><p>Responsive web app</p></div>
+      <div><span class="mono">Status</span><p>Live prototype on Framer</p></div>
+      <div><span class="mono">Discipline</span><p>UX/UI · Product · 3D · Full-stack</p></div>
+    </div>
+    <div class="ctas">
+      <a class="btn p" href="https://haizoom.framer.website/" target="_blank" rel="noopener">Visit the live site ↗</a>
+      <a class="btn g" href="#ai"><span class="d"></span>Skip to the AI workflow</a>
+    </div>
+  </div>
+</section>
+
+<div class="body">
+  <nav class="rail" id="rail" aria-label="On this page">
+    <div class="rh"><span class="mono">On this page</span><button class="pinb" id="pinB" type="button" aria-pressed="false" aria-label="Keep the section list open"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M9 4.5v15"/></svg></button></div>
+    <ol id="toc">
+      <li><a href="#overview"><span>Overview</span></a></li>
+      <li><a href="#problem"><span>The problem</span></a></li>
+      <li><a href="#brand"><span>Brand</span></a></li>
+      <li><a href="#discover"><span>Discovery</span></a></li>
+      <li><a href="#scan"><span>Body scan</span></a></li>
+      <li><a href="#threed"><span>3D fit</span></a></li>
+      <li><a href="#build"><span>The build</span></a></li>
+      <li><a href="#decisions"><span>Key decisions</span></a></li>
+      <li><a href="#ai"><span>AI workflow</span></a></li>
+      <li><a href="#outcome"><span>Outcome</span></a></li>
+    </ol>
+    <button class="aitog" id="aiTog" type="button" aria-pressed="true"><span class="tx">Show AI layer</span><span class="sw" aria-hidden="true"></span></button>
+  </nav>
+
+  <main>
+    <!-- 01 overview -->
+    <section class="s" id="overview">
+      <div class="lbl mono rv">01 · Overview</div>
+      <h2 class="rv">Couture is personal. <em>Online, it isn't.</em></h2>
+      <dl class="tldr rv">
+        <div><dt class="mono">Problem</dt><dd>Shoppers spend thousands on fit-sensitive pieces using flat photos and a generic size chart.</dd></div>
+        <div><dt class="mono">Solution</dt><dd>Editorial discovery, a body scan powered by 3DLOOK's API, and interactive 3D garments, in one live site.</dd></div>
+        <div><dt class="mono">My role</dt><dd>Sole designer and developer: research, brand, UX/UI, Framer build with React/TSX, Next.js backend.</dd></div>
+        <div><dt class="mono">Constraints</dt><dd>16 weeks, solo, a third-party scan API with its own input rules, and no real-body data for testing.</dd></div>
+        <div><dt class="mono">AI workflow</dt><dd>ChatGPT for research, copy and front-end debugging. Codex for the backend scaffold. ChatGPT image for concepts and test subjects.</dd></div>
+        <div><dt class="mono">Reviewed by</dt><dd>Harvard reviewers, Harvard Innovation Labs, 3DLOOK, and Ivan Ramos of Michael Kors.</dd></div>
+      </dl>
+      <div class="skills rv" aria-label="Skills demonstrated">
+        <span class="mono">Skills demonstrated</span>
+        <ul><li>UX research</li><li>Competitive audit</li><li>Information architecture</li><li>Interaction design</li><li>UI design</li><li>Brand identity</li><li>Prototyping</li><li>Framer</li><li>React / TSX</li><li>Next.js</li><li>REST API integration</li><li>CMS architecture</li><li>CLO3D</li><li>AI-assisted workflow</li><li>Prompting</li><li>QA &amp; testing</li></ul>
+      </div>
+      <div class="stats rv">
+        <div><b>16</b><span>weeks from brief to live prototype</span></div>
+        <div><b>1</b><span>designer-developer across every layer</span></div>
+        <div><b>6</b><span>body measurements returned per scan</span></div>
+        <div><b>4</b><span>review partners across academia and industry</span></div>
+      </div>
+    </section>
+
+    
+    <section class="s" id="problem">
+      <div class="lbl mono rv">02 · The problem</div>
+      <h2 class="rv">Luxury runs on trust. <em>Size charts don't build it.</em></h2>
+      <div class="cols r">
+        <p class="big rv">I audited how luxury and occasion-wear sites sell high-cost pieces. Beautiful imagery everywhere, and almost nothing to help a shopper picture the piece on their own body. Tap the numbers to see each finding.</p>
+        <div class="rv">
+          <ul class="notes" id="notes">
+            <li data-n="1"><span><b>Static imagery only.</b> Product pages lead with model photography on one body type.</span></li>
+            <li data-n="2"><span><b>Fit is a link, not a feature.</b> Sizing hides behind a small "size guide" link next to the add-to-cart button.</span></li>
+            <li data-n="3"><span><b>Trust is borrowed.</b> Press logos and celebrity features stand in for confidence about fit.</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="grid2 full">
+        <figure class="fig rv"><div class="shot pins"><img class="zoomable" src="assets/ref_lv.webp" alt="Audit: a luxury product page with one model photo and a size guide link" loading="lazy"><button type="button" class="pin" data-n="1" style="left:30%;top:45%" aria-label="Finding 1">1</button><button type="button" class="pin" data-n="2" style="left:84%;top:46%" aria-label="Finding 2">2</button></div><figcaption><span class="mono">Audit</span>Louis Vuitton · product page</figcaption></figure>
+        <figure class="fig rv"><div class="shot pins"><img class="zoomable" src="assets/ref_alamour.webp" alt="Audit: an occasion-wear site using press logos as social proof" loading="lazy"><button type="button" class="pin" data-n="3" style="left:50%;top:72%" aria-label="Finding 3">3</button></div><figcaption><span class="mono">Audit</span>Alamour · homepage</figcaption></figure>
+      </div>
+      <div class="hmw rv">
+        <span class="mono">The question I designed around</span>
+        <q>How might we help a shopper <em>feel personally seen</em> before they buy a piece made to be worn once, perfectly?</q>
+      </div>
+      <div class="ai rv">
+        <div class="ai-h"><span class="d" aria-hidden="true">AI</span>AI in the loop · <span class="ph">Research</span><span class="tool"><span>ChatGPT</span></span></div>
+        <div class="ai-b">
+          <div class="prompt"><span class="mono">The ask</span><p>Summarise how luxury sites handle fit and sizing online, and where shoppers lose confidence.</p></div>
+          <div><span class="mono">What it gave me</span><p>A fast first map of competitors and common fit tools, which I used as a checklist for my own audit.</p></div>
+          <div class="me"><span class="mono">My call</span><p><b>I verified every claim on the live sites myself</b> and only kept patterns I could screenshot.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 brand -->
+    <section class="s" id="brand">
+      <div class="lbl mono rv">03 · Brand</div>
+      <div class="cols">
+        <h2 class="rv">A house, <em>not a storefront.</em></h2>
+        <p class="rv">I built the identity around a crown monogram and a high-contrast Didone serif, set against near-black so the garments carry all the colour. The rule for every screen: the clothes are the loudest thing on it.</p>
+      </div>
+      <div class="brandrow">
+        <div class="tile logo rv"><img src="assets/logo_white.webp" alt="Haizoom Couture crown logo and wordmark" loading="lazy"></div>
+        <div class="tile type rv">
+          <div class="mono dim">Display · Bodoni Moda</div>
+          <div class="aa">Aa<em>g</em></div>
+          <div>
+            <div class="mono dim">Palette</div>
+            <div class="sw">
+              <span class="chip" style="background:#0a0909;color:#bbb">#0A0909</span>
+              <span class="chip" style="background:#f3efe8;color:#555">#F3EFE8</span>
+              <span class="chip" style="background:#7d1426;color:#f3d0d6">#7D1426</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <figure class="fig full rv"><div class="browser"><div class="bar"><i></i><i></i><i></i><span>haizoom.framer.website / house-of-haizoom</span></div><video data-src="assets/v_house.mp4" poster="assets/f_house1.webp" muted loop playsinline aria-label="House of Haizoom brand page scrolling"></video></div><figcaption><span class="mono">Brand page</span>House of Haizoom: the story page, where the brand voice gets room to breathe.</figcaption></figure>
+    </section>
+
+    <!-- 04 discovery -->
+    <section class="s" id="discover">
+      <div class="lbl mono rv">04 · Experience i · Discovery</div>
+      <div class="cols">
+        <h2 class="rv">Browse like you're <em>front row.</em></h2>
+        <p class="rv">Collections open with full-bleed runway imagery, then settle into a calm product grid. Every product page adds the one action none of the audited sites offered: a body scan for personalized fit.</p>
+      </div>
+
+      <div class="uflow rv" aria-label="Shopper journey">
+        <div class="uf-h"><span class="mono">Shopper journey</span><span class="mono dim">Core flow I designed and built</span></div>
+        <ol>
+          <li><b>Collection</b><span>Runway-led landing</span></li>
+          <li><b>Product grid</b><span>CMS-driven browse</span></li>
+          <li><b>Product page</b><span>Size + body-scan prompt</span></li>
+          <li class="hl"><b>Body scan</b><span>Gender · height · weight · 2 photos</span></li>
+          <li class="hl"><b>Measurements</b><span>6 values, in inches</span></li>
+          <li><b>3D view</b><span>Turn the garment, read the fit</span></li>
+          <li><b>Add to bag</b><span>Decide with confidence</span></li>
+        </ol>
+      </div>
+      <figure class="fig full rv"><div class="browser"><div class="bar"><i></i><i></i><i></i><span>haizoom.framer.website / ready-to-wear</span></div><video data-src="assets/v_sequence.mp4" poster="assets/f_gown.webp" muted loop playsinline aria-label="Ready-to-wear flow from collection to product page"></video></div><figcaption><span class="mono">Flow</span>Collection → grid → product page, recorded on the live site.</figcaption></figure>
+      <div class="grid2 full">
+        <figure class="fig rv"><div class="shot"><img class="zoomable" src="assets/f_plp.webp" alt="Ready-to-wear product grid on black" loading="lazy"></div><figcaption><span class="mono">Grid</span>Ready-to-wear grid, driven by the Framer CMS.</figcaption></figure>
+        <figure class="fig rv"><div class="shot"><img class="zoomable" src="assets/f_pdp.webp" alt="Product page with a Complete Body Scan for personalized fit prompt" loading="lazy"></div><figcaption><span class="mono">Product page</span>"Complete body scan for personalized fit" sits right next to size selection.</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- 05 scan -->
+    <section class="s" id="scan">
+      <div class="lbl mono rv">05 · Experience ii · Body scan</div>
+      <div class="cols">
+        <div class="rv">
+          <h2>A fitting room <em>in two photos.</em></h2>
+          <p class="big">The scan had to feel like a fitting appointment, not a form.</p>
+        </div>
+        <div class="rv">
+          <p>Gender, then height and weight, then a front and a side photo. My backend sends the photos to 3DLOOK's Mobile Tailor API and returns chest, waist, hip, shoulder, inseam and sleeve.</p>
+          <p class="dim">The capture and measurement technology is 3DLOOK's. The flow, the interface and the integration are mine.</p>
+        </div>
+      </div>
+      <figure class="fig full rv"><div class="shot" style="background:#0f0f10"><img class="zoomable" src="assets/shot0.webp" alt="Body-scan wizard screens: gender, height and weight" loading="lazy"></div><figcaption><span class="mono">Wizard</span>One question per screen, with dials instead of text fields.</figcaption></figure>
+      <div class="cols full">
+        <figure class="fig rv"><div class="phone"><video data-src="assets/v_scan.mp4" poster="assets/f_scan_result.webp" muted loop playsinline aria-label="Body-scan capture and measurement result"></video></div><figcaption style="justify-content:center"><span class="mono">Capture</span>3DLOOK Mobile Tailor capture and result.</figcaption></figure>
+        <div class="rv">
+          <h3>Testing without real bodies</h3>
+          <p class="dim">Instead of anyone's private photos, I generated synthetic subjects in the pose the API expects, then checked the measurements and avatar that came back.</p>
+          <div class="ba">
+            <figure><img src="assets/test_front.webp" alt="Synthetic test subject, front" loading="lazy"><figcaption>Test input · front</figcaption></figure>
+            <figure><img src="assets/test_side.webp" alt="Synthetic test subject, side" loading="lazy"><figcaption>Test input · side</figcaption></figure>
+            <figure><img src="assets/in_front.webp" alt="Input avatar, front" loading="lazy"><figcaption>Avatar in</figcaption></figure>
+            <figure><img src="assets/out_front.webp" alt="Output avatar, front" loading="lazy"><figcaption>Avatar out</figcaption></figure>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow rv" aria-label="How the body scan works">
+        <svg viewBox="0 0 1000 300" role="img" aria-labelledby="flowT">
+          <title id="flowT">Body-scan request flow from the Framer site through a Next.js route to 3DLOOK and back</title>
+          <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="currentColor" style="fill:var(--dim)"/></marker></defs>
+          <g class="nd"><rect x="10" y="40" width="200" height="88" rx="14"/><text x="30" y="74" class="t1">Framer site</text><text x="30" y="96" class="t2">wizard + 2 photos</text><text x="30" y="114" class="t2">React override</text></g>
+          <g class="nd hl"><rect x="280" y="40" width="220" height="88" rx="14"/><text x="300" y="74" class="t1">/api/body-scan</text><text x="300" y="96" class="t2">Next.js route · server-only</text><text x="300" y="114" class="t2">validates · lbs→kg</text></g>
+          <g class="nd ext"><rect x="570" y="40" width="200" height="88" rx="14"/><text x="590" y="74" class="t1">3DLOOK API</text><text x="590" y="96" class="t2">create person</text><text x="590" y="114" class="t2">upload front + side</text></g>
+          <g class="nd ext"><rect x="570" y="186" width="200" height="88" rx="14"/><text x="590" y="220" class="t1">Task polling</text><text x="590" y="242" class="t2">every 4 s · max 30</text><text x="590" y="260" class="t2">follow 303 → result</text></g>
+          <g class="nd hl"><rect x="280" y="186" width="220" height="88" rx="14"/><text x="300" y="220" class="t1">Measurement mapper</text><text x="300" y="242" class="t2">cm → inches</text><text x="300" y="260" class="t2">rejects bad formats</text></g>
+          <g class="nd"><rect x="10" y="186" width="200" height="88" rx="14"/><text x="30" y="220" class="t1">Personal fit</text><text x="30" y="242" class="t2">6 measurements</text><text x="30" y="260" class="t2">→ mannequin + 3D</text></g>
+          <path class="ar live" d="M212 84H276"/><path class="ar live" d="M502 84H566"/><path class="ar" d="M670 130V182"/><path class="ar" d="M568 230H504"/><path class="ar" d="M278 230H214"/>
+          <text x="802" y="78" class="lg">— solid: my code</text><text x="802" y="98" class="lg">- - dashed: 3DLOOK</text>
+        </svg>
+      </div>
+
+      <div class="ai rv">
+        <div class="ai-h"><span class="d" aria-hidden="true">AI</span>AI in the loop · <span class="ph">Backend</span><span class="tool"><span>Codex</span></span></div>
+        <div class="ai-b">
+          <div class="prompt"><span class="mono">The ask</span><p>Build a server-only Next.js route that takes the wizard's form data and photos, creates a 3DLOOK person, polls the task, and returns six measurements.</p></div>
+          <div><span class="mono">What it gave me</span><p>A working route scaffold: form parsing, the 3DLOOK create-upload-poll sequence, and CORS for the Framer front end.</p></div>
+          <div class="me"><span class="mono">My call</span><p><b>I designed the request contract</b>, validated every field, capped polling at 30 tries, and mapped 3DLOOK's fields to the six measurements a fitting needs.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 3D -->
+    <section class="s" id="threed">
+      <div class="lbl mono rv">06 · Experience iii · 3D fit</div>
+      <div class="cols">
+        <h2 class="rv">Turn it. <em>Read the drape.</em></h2>
+        <p class="rv">Photos show how a dress looks on a model. 3D shows how it moves. I built garments in CLO3D, explored Sketchfab-style viewers, model-viewer and AR Quick Look, and brought interactive pieces into the product pages.</p>
+      </div>
+      <div class="grid3 full">
+        <figure class="fig rv"><div class="shot"><video data-src="assets/g_extraimg2.mp4" muted loop playsinline aria-label="3D garment turntable"></video></div></figure>
+        <figure class="fig rv"><div class="shot"><video data-src="assets/g_extraimg3.mp4" muted loop playsinline aria-label="3D draped gown in motion"></video></div></figure>
+        <figure class="fig rv"><div class="shot"><video data-src="assets/g_extraimg4.mp4" muted loop playsinline aria-label="3D gown on an invisible form"></video></div></figure>
+      </div>
+      <div class="grid2 full">
+        <figure class="fig rv"><div class="shot" style="background:#000"><img class="zoomable" src="assets/clo_turn.webp" alt="CLO3D dress build shown from four angles" loading="lazy"></div><figcaption><span class="mono">CLO3D</span>Pattern-to-garment build, checked from four angles.</figcaption></figure>
+        <figure class="fig rv"><div class="shot"><img class="zoomable" src="assets/purple3d.webp" alt="Four purple gowns on mannequins, collection concept" loading="lazy"></div><figcaption><span class="mono">Concept</span>Evening collection concept.</figcaption></figure>
+      </div>
+      <div class="ai rv">
+        <div class="ai-h"><span class="d" aria-hidden="true">AI</span>AI in the loop · <span class="ph">Visual development</span><span class="tool"><span>ChatGPT image</span></span></div>
+        <div class="ai-b">
+          <div class="prompt"><span class="mono">The ask</span><p>Variations on a structured purple evening gown on dress forms, studio lighting, couture detailing.</p></div>
+          <div><span class="mono">What it gave me</span><p>Fast concept imagery to test how a collection would read on black before committing to 3D builds.</p></div>
+          <div class="me"><span class="mono">My call</span><p><b>Concepts only.</b> I used them to choose direction. Garments shown as products were built or sourced, not generated.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 build -->
+    <section class="s" id="build">
+      <div class="lbl mono rv">07 · The build</div>
+      <div class="cols">
+        <h2 class="rv">Designed in Framer. <em>Engineered past it.</em></h2>
+        <p class="rv">Framer got me to a real, responsive site fast. Where it stopped, I wrote code: React/TSX overrides for the scan wizard and 3D viewers, and a CMS model that holds every collection, product, image set and price, so new collections drop in without touching layout.</p>
+      </div>
+      <figure class="fig full rv"><div class="browser"><div class="bar"><i></i><i></i><i></i><span>Framer · HaizoomCouture</span></div><video data-src="assets/v_framer.mp4" poster="assets/f_framer.webp" muted loop playsinline aria-label="Framer editor walkthrough of the project"></video></div><figcaption><span class="mono">Framer</span>The project in Framer: pages, components and CMS-driven layouts.</figcaption></figure>
+      <div class="grid2 full">
+        <figure class="fig rv"><div class="shot"><img class="zoomable" src="assets/f_cms.webp" alt="Framer CMS with collections and image fields" loading="lazy"></div><figcaption><span class="mono">CMS</span>Collections as data: season, images, links.</figcaption></figure>
+        <figure class="fig rv"><div class="shot"><img class="zoomable" src="assets/f_cms3.webp" alt="Framer canvas with product card variants" loading="lazy"></div><figcaption><span class="mono">Components</span>Product cards and variants on the canvas.</figcaption></figure>
+      </div>
+      <div class="ai rv">
+        <div class="ai-h"><span class="d" aria-hidden="true">AI</span>AI in the loop · <span class="ph">Front-end code</span><span class="tool"><span>ChatGPT</span></span></div>
+        <div class="ai-b">
+          <div class="prompt"><span class="mono">The ask</span><p>Fix my SketchfabViewer component so the modelId prop updates the viewer, and show me how to pass a different model per product.</p></div>
+          <div><span class="mono">What it gave me</span><p>A corrected React component that re-initialises whenever the model ID changes.</p></div>
+          <div class="me"><span class="mono">My call</span><p><b>I wired the model ID to the CMS</b> so each product loads its own 3D model, then tested every product page.</p></div>
+        </div>
+      </div>
+      <figure class="fig full rv"><div class="shot"><img class="zoomable" src="assets/ai_sketchfab.webp" alt="ChatGPT conversation about the SketchfabViewer component" loading="lazy"></div><figcaption><span class="mono">Receipt</span>A real excerpt from my ChatGPT session while building the 3D viewer.</figcaption></figure>
+    </section>
+
+    <!-- 08 decisions -->
+    <section class="s" id="decisions">
+      <div class="lbl mono rv">08 · Key decisions</div>
+      <div class="cols">
+        <h2 class="rv">Three calls <em>that shaped it.</em></h2>
+        <p class="rv">Each one traded something away. These are the choices I would defend in a critique.</p>
+      </div>
+      <div class="decs">
+        <article class="dec rv">
+          <span class="mono">Decision 01 · Scan technology</span>
+          <h3>Partner for the scan, own the experience.</h3>
+          <dl>
+            <div><dt>Options</dt><dd>Build my own pose-and-measure model, fake it with manual inputs, or integrate a proven body-scan API.</dd></div>
+            <div><dt>Chose</dt><dd>3DLOOK's Mobile Tailor API, so the measurements are real and my time goes into the flow around them.</dd></div>
+            <div class="gave"><dt>Gave up</dt><dd>Control over capture rules and the inputs the API requires.</dd></div>
+          </dl>
+        </article>
+        <article class="dec rv">
+          <span class="mono">Decision 02 · Architecture</span>
+          <h3>Framer for speed, a server for secrets.</h3>
+          <dl>
+            <div><dt>Options</dt><dd>A fully custom front end, or Framer with code where it falls short.</dd></div>
+            <div><dt>Chose</dt><dd>Framer with React overrides and a CMS, plus one small Next.js route, because browser code can't hold an API key.</dd></div>
+            <div class="gave"><dt>Gave up</dt><dd>A single codebase. Two deploys to keep in sync instead of one.</dd></div>
+          </dl>
+        </article>
+        <article class="dec rv">
+          <span class="mono">Decision 03 · Friction vs. accuracy</span>
+          <h3>Ask for weight, but make it painless.</h3>
+          <dl>
+            <div><dt>Options</dt><dd>Skip weight for a shorter form, or ask for it because 3DLOOK's person-first flow requires it.</dd></div>
+            <div><dt>Chose</dt><dd>Keep it, as a dial in pounds that converts to kilograms on the server, one question per screen.</dd></div>
+            <div class="gave"><dt>Gave up</dt><dd>One extra step in a flow where every step costs completion.</dd></div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <!-- 08 AI workflow -->
+    <section class="s" id="ai">
+      <div class="lbl mono rv">09 · AI workflow</div>
+      <div class="cols">
+        <h2 class="rv">Where AI sat <em>in the workflow.</em></h2>
+        <p class="big rv">Shipping research, brand, UX, front end and a backend alone takes leverage. Here is exactly where AI helped, and where it didn't.</p>
+      </div>
+      <div class="map rv"><div class="map-wrap"><table>
+        <thead><tr><th>Phase</th><th>Tools</th><th>What AI did</th><th>What I did</th></tr></thead>
+        <tbody>
+          <tr><td>Research</td><td><span class="t gpt">ChatGPT</span><span class="t me">Me</span></td><td>First-pass competitor map and fit-tool overview</td><td>Audited live sites, set the problem and the question</td></tr>
+          <tr><td>Brand</td><td><span class="t me">Me</span></td><td>—</td><td>Logo, type, palette, voice</td></tr>
+          <tr><td>UX &amp; UI</td><td><span class="t gpt">ChatGPT</span><span class="t me">Me</span></td><td>Copy drafts and microcopy options</td><td>Flows, wireframes, every screen, final copy</td></tr>
+          <tr><td>Visual dev</td><td><span class="t img">ChatGPT image</span><span class="t me">Me</span></td><td>Concept imagery for collections</td><td>Art direction, curation, CLO3D builds</td></tr>
+          <tr><td>Front end</td><td><span class="t gpt">ChatGPT</span><span class="t me">Me</span></td><td>Debugging React overrides and 3D viewer code</td><td>Architecture, Framer build, CMS model, testing</td></tr>
+          <tr><td>Backend</td><td><span class="t cdx">Codex</span><span class="t me">Me</span></td><td>Scaffolded the Next.js body-scan route</td><td>API design, security, validation, measurement mapping</td></tr>
+          <tr><td>QA</td><td><span class="t img">ChatGPT image</span><span class="t me">Me</span></td><td>Synthetic test subjects for the scan</td><td>Test plan, edge cases, judging the results</td></tr>
+        </tbody>
+      </table></div></div>
+      <div class="rules">
+        <div class="rule rv"><span class="mono">Principle 01</span><p><b>Secrets stay server-side.</b> No API key in Framer or browser code. Only the backend talks to 3DLOOK.</p></div>
+        <div class="rule rv"><span class="mono">Principle 02</span><p><b>AI output is a starting point.</b> A lead to verify, a scaffold to harden, or a concept to curate, never the final answer.</p></div>
+      </div>
+    </section>
+
+    <!-- 09 outcome -->
+    <section class="s" id="outcome">
+      <div class="lbl mono rv">10 · Outcome</div>
+      <h2 class="rv">From concept to <em>a working product.</em></h2>
+      <div class="outs">
+        <div class="out rv"><h3>Live and working</h3><p>A real body-scan integration, not a mock-up, running on a public site.</p></div>
+        <div class="out rv"><h3>A foundation, not a feature</h3><p>Body data becomes the base for recommendations, avatar previews and, later, made-to-measure orders.</p></div>
+                <div class="out rv"><h3>What I'd do differently</h3><p>Put the scan in front of real shoppers earlier, and plan the product-to-3D pipeline from the catalogue up instead of piece by piece.</p></div>
+        <div class="out rv"><h3>What I'd do next</h3><p>Fit the shopper's own avatar into the 3D garment, and test the scan flow with real shoppers for drop-off and trust.</p></div>
+      </div>
+
+      <div class="sess rv" aria-labelledby="sessT">
+        <div class="sess-l">
+          <span class="mono">Shaped in 1:1 sessions</span>
+          <h3 id="sessT">Reviewed by people who build this for real.</h3>
+          <ul class="who">
+            <li><b>Ivan Ramos</b><span>Michael Kors</span></li>
+            <li><b>3DLOOK</b><span>Body-scan technology partner</span></li>
+            <li><b>Harvard Innovation Labs</b><span>Venture &amp; product guidance</span></li>
+            <li><b>Harvard reviewers</b><span>Capstone faculty panel</span></li>
+          </ul>
+        </div>
+        <div class="sess-r">
+          <span class="mono">What we worked through</span>
+          <ol class="topics">
+            <li><b>3D flow</b><span>Where 3D earns its place in a luxury purchase, and where it slows the shopper down.</span><a href="#threed">See 06</a></li>
+            <li><b>Product-to-3D mapping</b><span>How a catalogue product becomes a 3D asset in an industry pipeline.</span><a href="#threed">See 06</a></li>
+            <li><b>Industry-standard workstream</b><span>How fashion teams hand work between design, 3D and e-commerce.</span><a href="#build">See 07</a></li>
+            <li><b>Scan integration</b><span>Turning a measurement API into a flow shoppers trust.</span><a href="#scan">See 05</a></li>
+            <li><b>AI involvement</b><span>Which steps AI should speed up, and which need a human call.</span><a href="#ai">See 09</a></li>
+          </ol>
+        </div>
+      </div>
+      <a class="next rv" href="#" aria-label="Next project: WhaleQuest">
+        <img src="assets/next_whale.webp" alt="" loading="lazy">
+        <div class="in"><span class="mono">Next project · 03</span><b>WhaleQuest <span>→</span></b></div>
+      </a>
+    </section>
+  </main>
+</div>
+
+<footer class="end" id="contact">
+  <div class="f-top">
+    <div class="f-kick"><span class="pulse" aria-hidden="true"></span>Open to new work · Full-time &amp; freelance</div>
+    <h2 class="f-h"><span class="rv">Let's make</span><span class="rv"><em>something real.</em></span></h2>
+    <div class="f-cta rv"><a class="f-btn" id="fMail" href="mailto:srzahid99@gmail.com">Say hello<span aria-hidden="true">→</span></a><span class="f-note">Usually replies within a day</span></div>
+  </div>
+  <div class="f-grid">
+    <div class="f-col f-studio"><p class="f-dim">UX/UI · Product · Motion · 3D &amp; XR · AI</p></div>
+    <div class="f-col f-links"><a href="https://www.linkedin.com/in/srrazahid/" target="_blank" rel="noopener">LinkedIn<i>↗</i></a><a href="https://www.instagram.com/minigurlyyy/" target="_blank" rel="noopener">Instagram<i>↗</i></a><a href="https://www.youtube.com/@minigurlyyy" target="_blank" rel="noopener">YouTube<i>↗</i></a></div>
+  </div>
+  <div class="f-word" id="fWord" aria-hidden="true">Srra Zahid</div>
+  <div class="f-bar"><span>© <span id="fYr">2026</span> HaizoomDesign</span><span class="f-mid">Designed &amp; coded by hand in San Francisco</span><a href="#top" class="f-up">Back to top <span aria-hidden="true">↑</span></a></div>
+</footer>
+
+<div class="lb" id="lb" role="dialog" aria-label="Image viewer" aria-hidden="true"><img alt=""><p></p></div>
+
+<script>
+(()=>{const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],root=document.documentElement;
+/* theme (shared with home) */
+$('#themeBtn').addEventListener('click',()=>{const d=root.classList.toggle('dark');try{localStorage.setItem('sz-theme3',d?'dark':'light')}catch(e){}});
+/* nav goes solid after hero */
+const top=$('#top'),hero=$('.hero');const navS=()=>top.classList.toggle('solid',hero.getBoundingClientRect().bottom<80);addEventListener('scroll',navS,{passive:true});navS();
+/* reveal (skipped for automated readers so every section is visible to them) */
+const bot=navigator.webdriver||/bot|crawl|spider|headless|lighthouse/i.test(navigator.userAgent);
+if(bot)$$('.rv').forEach(el=>el.classList.add('in'));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});if(!bot)$$('.rv').forEach(el=>io.observe(el));
+/* videos: load + play only in view */
+const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(v.dataset.src&&!v.src){v.src=v.dataset.src}v.play().catch(()=>{})}else v.pause()}),{threshold:.25});$$('video').forEach(v=>vio.observe(v));
+/* section index */
+const links=$$('#toc a'),secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const sio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});secs.forEach(s=>s&&sio.observe(s));
+/* rail: appears after the hero; hover/focus expands; pin keeps it open */
+const rail=$('#rail'),pinB=$('#pinB');const footEl=document.querySelector('footer.end');const railS=()=>rail.classList.toggle('show',hero.getBoundingClientRect().bottom<innerHeight*.4&&footEl.getBoundingClientRect().top>innerHeight*.55);addEventListener('scroll',railS,{passive:true});railS();
+const setPin=on=>{rail.classList.toggle('pinned',on);document.body.classList.toggle('railpin',on);pinB.setAttribute('aria-pressed',on);pinB.setAttribute('aria-label',on?'Collapse the section list':'Keep the section list open');try{localStorage.setItem('sz-rail',on?'1':'0')}catch(e){}};
+try{if(localStorage.getItem('sz-rail')==='1')setPin(true)}catch(e){}
+pinB.addEventListener('click',()=>setPin(!rail.classList.contains('pinned')));
+/* audit pins: click (or hover) a number to read the finding; notes highlight back */
+const notes=$$('#notes li'),pins=$$('.pin');let openN=null;
+const showN=(n,src)=>{openN=n;$$('.pop').forEach(p=>p.remove());pins.forEach(p=>p.classList.toggle('on',p.dataset.n===n));notes.forEach(l=>l.classList.toggle('on',l.dataset.n===n));
+  if(!n)return;const pin=pins.find(p=>p.dataset.n===n),li=notes.find(l=>l.dataset.n===n),box=pin.closest('figure');
+  const pop=document.createElement('div');pop.className='pop';pop.setAttribute('role','status');pop.innerHTML=li.querySelector('span').innerHTML;box.appendChild(pop);
+  const px=pin.offsetLeft,py=pin.offsetTop,bw=box.clientWidth;pop.style.top=(py+26)+'px';if(px>bw*.55){pop.style.right=Math.max(0,bw-px-15)+'px'}else{pop.style.left=Math.max(0,px-15)+'px'}
+  requestAnimationFrame(()=>pop.classList.add('on'));};
+pins.forEach(p=>{p.addEventListener('click',e=>{e.stopPropagation();showN(openN===p.dataset.n?null:p.dataset.n)});p.addEventListener('mouseenter',()=>{if(matchMedia('(hover:hover)').matches)showN(p.dataset.n)})});
+$$('.pins').forEach(b=>b.addEventListener('mouseleave',()=>{if(matchMedia('(hover:hover)').matches)showN(null)}));
+notes.forEach(l=>{l.addEventListener('mouseenter',()=>pins.forEach(p=>p.classList.toggle('on',p.dataset.n===l.dataset.n)));l.addEventListener('mouseleave',()=>{if(!openN)pins.forEach(p=>p.classList.remove('on'))});l.addEventListener('click',()=>showN(l.dataset.n))});
+document.addEventListener('click',e=>{if(openN&&!e.target.closest('.pin,.pop,#notes'))showN(null)});
+/* AI layer toggle */
+const tog=$('#aiTog');const setAI=on=>{root.classList.toggle('noai',!on);tog.setAttribute('aria-pressed',on);try{localStorage.setItem('sz-ai',on?'1':'0')}catch(e){}};
+try{if(localStorage.getItem('sz-ai')==='0')setAI(false)}catch(e){}
+tog.addEventListener('click',()=>setAI(root.classList.contains('noai')));
+/* lightbox */
+const lb=$('#lb'),lbi=lb.querySelector('img'),lbp=lb.querySelector('p');
+$$('.zoomable').forEach(img=>img.addEventListener('click',()=>{lbi.src=img.src;lbi.alt=img.alt;const c=img.closest('figure')?.querySelector('figcaption');lbp.textContent=c?c.textContent.replace(/^\S+/,'').trim():'';lb.classList.add('on');lb.setAttribute('aria-hidden','false')}));
+const close=()=>{lb.classList.remove('on');lb.setAttribute('aria-hidden','true')};lb.addEventListener('click',close);addEventListener('keydown',e=>{if(e.key==='Escape'){close();showN(null)}});
+/* back to top */
+$$('.f-up').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();scrollTo({top:0,behavior:'smooth'})}));
+$('#fYr').textContent=new Date().getFullYear();
+/* footer reveal + slow drift of the landscape inside the name (same as home) */
+const end=$('#contact'),word=$('#fWord');
+if(bot)end.classList.add('in');else new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)end.classList.add('in')}),{threshold:.18}).observe(end);
+const par=()=>{const r=word.getBoundingClientRect();const k=Math.min(1.4,Math.max(0,1-(r.top/innerHeight)));word.style.setProperty('--ly',(44+k*16).toFixed(1)+'%')};addEventListener('scroll',par,{passive:true});par();
+})();
+</script>
+</body>
+</html>
